@@ -1,8 +1,5 @@
 
-
 SET FOREIGN_KEY_CHECKS = 0;
-
- 
 
 -- Deleteing old data, if any
 
@@ -23,35 +20,25 @@ DELETE FROM param_value_static_options WHERE function_id = 'FUNC0517';
 DELETE FROM function_category_map WHERE function_id = 'FUNC0517';
 
 -- End of Delete
-
- 
-
--- Start Data INSERT
+  
+  -- Start Data INSERT
 
 INSERT INTO r_function_metadata (function_id,r_function_name,r_is_chain_function,function_language)Values('FUNC0517','decision_tree_cart_flyout_data',False,'PYTHON');
 
- 
 
-INSERT INTO material (name,code) SELECT * FROM (SELECT 'Function -  Decision Tree CART (Py)', 'MAT_FUNC0517') as tmp WHERE NOT EXISTS ( SELECT id FROM material WHERE code = 'MAT_FUNC0517') LIMIT 1 ;
+INSERT INTO material (name,code) SELECT * FROM (SELECT 'Decision Tree CART (Py)', 'MAT_FUNC0517') as tmp WHERE NOT EXISTS ( SELECT id FROM material WHERE code = 'MAT_FUNC0517') LIMIT 1 ;
 
 SET @FUNC_MATERIAL_ID = (SELECT id FROM material WHERE code = 'MAT_FUNC0517');
 
- 
 
-INSERT INTO function_metadata (function_id, function_name,is_active, is_executable, input_multitable_indicator, all_data_identifier, data_modify_indicator, new_column_indicator, new_datatable_indicator,output_type,create_data_object, function_desc, function_popup_title, function_popup_description, function_search_tags, material_id)Values('FUNC0517',' Decision Tree CART (Py)',True,True,False,False,False,True,False,'MIXED_OUTPUT',True,'','','',4501, @FUNC_MATERIAL_ID);
+INSERT INTO function_metadata (function_id, function_name,is_active, is_executable, input_multitable_indicator, all_data_identifier, data_modify_indicator, new_column_indicator, new_datatable_indicator,output_type,create_data_object,use_data_object, function_desc, function_popup_title, function_popup_description, function_search_tags, material_id)Values('FUNC0517','Function -  Decision Tree CART (Py)',True,True,False,False,False,True,True,'MIXED_OUTPUT',True,False,'','','','4501', @FUNC_MATERIAL_ID);
 
- 
 
-INSERT INTO function_category_map (Function_id, category_id) values('FUNC0517','508');
+INSERT INTO function_category_map (Function_id, category_id) values('FUNC0517','508'); 
+  -- Param 1);
 
- 
-
--- Param 1);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',1,True,'SINGLE_SELECT','','Select Target Variable',9999,NULL);
-
- 
-
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',1,False,'SINGLE_SELECT','','Select Target Variable',9999,NULL);
+   
 INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('target_variable','Target Variable','','STATIC','FUNC0517',1);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
@@ -60,10 +47,9 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
-
+  
 INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('target_variable','Target Variable','','DATA_HEADER','FUNC0517',1);
 
 SET @Value_ID = (SELECT MAX(ID) FROM param_value);
@@ -72,19 +58,13 @@ SET @Function_ID = (SELECT function_id FROM param_value WHERE id = @Value_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_value WHERE id = @Value_ID);
 
-UPDATE param SET value =  @Value_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+     
+  -- Param 2);
 
- 
-
-
-
--- Param 2);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',2,False,'INT','','Enter an integer ,9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_depth ','Depth of Tree','','STATIC','FUNC0517',2);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',2,False,'INT','','Enter an Integer. Default; None',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_depth','Depth of Tree','','STATIC','FUNC0517',2);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -92,19 +72,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 3);
 
-
-
--- Param 3);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',3,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; 2',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_samples_split ','Min Samples Split','','STATIC','FUNC0517',3);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',3,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; 2',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_samples_split','Min Samples Split','','STATIC','FUNC0517',3);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -112,19 +87,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 4);
 
-
-
--- Param 4);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',4,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; 1',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_samples_leaf ','Min Samples Leaf','','STATIC','FUNC0517',4);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',4,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; 1',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_samples_leaf','Min Samples Leaf','','STATIC','FUNC0517',4);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -132,19 +102,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 5);
 
-
-
--- Param 5);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',5,False,'FLOAT','','Enter a float value. Default; 0.0',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_weight_fraction_leaf ','Min                                                                          Leaf','','STATIC','FUNC0517',5);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',5,False,'FLOAT','','Enter an integer or float value Default; 0.0',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('min_weight_fraction_leaf','Min Weight Fraction Leaf','','STATIC','FUNC0517',5);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -152,17 +117,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 6);
 
--- Param 6);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',6,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; None',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_features ','Max Features','','STATIC','FUNC0517',6);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',6,False,'FLOAT','','Enter an integer or float value (in case of fraction of data). Default; None',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_features','Max Features','','STATIC','FUNC0517',6);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -170,19 +132,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 7);
 
-
-
--- Param 7);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',7,False,'INT','','Enter an integer value. Default; None',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('random_state ','Random State','','STATIC','FUNC0517',7);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',7,False,'INT','','Enter an integer value. Default; None',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('random_state','Random State','','STATIC','FUNC0517',7);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -190,19 +147,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 8);
 
-
-
--- Param 8);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',8,False,'INT','','Enter an integer value. Default: None',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_leaf_nodes ','Max Leaf Nodes','','STATIC','FUNC0517',8);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',8,False,'INT','','Enter an integer value. Default; None',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('max_leaf_nodes','Max Leaf Nodes','','STATIC','FUNC0517',8);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -210,17 +162,14 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 9);
 
--- Param 9);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',9,False,'TEXT','','Enter class weights for class 0 first then class 1 in comma seperated format',9999,NULL);
-
- 
-
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('class_weight ','Class Weights','','STATIC','FUNC0517',9);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',9,False,'TEXT','','Enter class weights for class 0 first then class 1 in comma separated format',9999,NULL);
+   
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('class_weight','Class Weight','','STATIC','FUNC0517',9);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -228,16 +177,13 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 10);
 
--- Param 10);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',10,False,'FLOAT','','Enter a float value between (0,1). Default: 0.5',9999,NULL);
-
- 
-
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',10,False,'FLOAT','','Enter a float value between (0,1). Default: 0.5',9999,NULL);
+   
 INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('prob_cutoff','Probability Cutoff','','STATIC','FUNC0517',10);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
@@ -246,16 +192,13 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
+   
+  -- Param 11);
 
--- Param 11);
-
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Decision Tree CART (Py)',11,False,'TEXT','','Enter Model Name(Required only if you wish to save the model)',9999,NULL);
-
- 
-
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0517','Function -  Decision Tree CART (Py)',11,False,'FLOAT','','Enter Model Name(Required only if you wish to save the model)',9999,NULL);
+   
 INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('dataObjectName','Model Name','','STATIC','FUNC0517',11);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
@@ -264,27 +207,21 @@ SET @Function_ID = (SELECT function_id FROM param_header WHERE id = @Header_ID);
 
 SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID);
 
-UPDATE param SET header =  @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
+UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
- 
-
-
-
-
- -- Static update ----
-
+  
 UPDATE param_value_static_options
 
 SET value_id = (SELECT id
 
-            FROM param_value
+FROM param_value
 
-            WHERE param_value.function_id = param_value_static_options.function_id
+WHERE param_value.function_id = param_value_static_options.function_id
 
-            AND param_value.option_order = param_value_static_options.option_order )
+AND param_value.option_order = param_value_static_options.option_order )
 
 WHERE function_id = 'FUNC0517';
 
- 
 
 SET FOREIGN_KEY_CHECKS= 1 ;
+  
