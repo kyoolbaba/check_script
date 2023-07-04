@@ -37,7 +37,7 @@ INSERT INTO function_metadata (function_id, function_name,is_active, is_executab
 INSERT INTO function_category_map (Function_id, category_id) values('FUNC0925','303'); 
   -- Param 1);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',1,True,'SINGLE_SELECT','','Select a column to position marks along X-axis.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',1,True,'SINGLE_SELECT','','Select a column to position marks along X-axis.',9990,NOTNULL);
    
 INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('x_variable','X-Axis','','STATIC','FUNC0925',1);
 
@@ -112,8 +112,7 @@ UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_O
      
   -- Param 4);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',4,False,'TEXT','','Provide a title for the bar chart, if not entered, a default title will be added to the 
-            figure.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',4,False,'TEXT','','Provide a title for the bar chart, if not entered, a default title will be added to the figure.',9999,NULL);
    
 INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('title','Title','','STATIC','FUNC0925',4);
 
@@ -182,7 +181,6 @@ WHERE param_value.function_id = param_value_static_options.function_id
 AND param_value.option_order = param_value_static_options.option_order )
 
 WHERE function_id = 'FUNC0925';
-
 
 SET FOREIGN_KEY_CHECKS= 1 ;
   
