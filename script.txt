@@ -3,43 +3,43 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 -- Deleteing old data, if any
 
-DELETE FROM r_chain_function_map WHERE function_id = 'FUNC0925';
+DELETE FROM r_chain_function_map WHERE function_id = 'FUNC1031';
 
-DELETE FROM r_function_metadata WHERE function_id = 'FUNC0925';
+DELETE FROM r_function_metadata WHERE function_id = 'FUNC1031';
 
-DELETE FROM function_metadata WHERE function_id = 'FUNC0925';
+DELETE FROM function_metadata WHERE function_id = 'FUNC1031';
 
-DELETE FROM param WHERE function_id = 'FUNC0925';
+DELETE FROM param WHERE function_id = 'FUNC1031';
 
-DELETE FROM param_header WHERE function_id = 'FUNC0925';
+DELETE FROM param_header WHERE function_id = 'FUNC1031';
 
-DELETE FROM param_value WHERE function_id = 'FUNC0925';
+DELETE FROM param_value WHERE function_id = 'FUNC1031';
 
-DELETE FROM param_value_static_options WHERE function_id = 'FUNC0925';
+DELETE FROM param_value_static_options WHERE function_id = 'FUNC1031';
 
-DELETE FROM function_category_map WHERE function_id = 'FUNC0925';
+DELETE FROM function_category_map WHERE function_id = 'FUNC1031';
 
 -- End of Delete
   
   -- Start Data INSERT
 
-INSERT INTO r_function_metadata (function_id,r_function_name,r_is_chain_function,function_language)Values('FUNC0925','new_bar_chart_plotly',False,'PYTHON');
+INSERT INTO r_function_metadata (function_id,r_function_name,r_is_chain_function,function_language)Values('FUNC1031','SQL_case',False,'PYTHON');
 
 
-INSERT INTO material (name,code) SELECT * FROM (SELECT 'Function - Bar Chart (Py) (IN)', 'MAT_FUNC0925') as tmp WHERE NOT EXISTS ( SELECT id FROM material WHERE code = 'MAT_FUNC0925') LIMIT 1 ;
+INSERT INTO material (name,code) SELECT * FROM (SELECT 'Function - SQL Case', 'MAT_FUNC1031') as tmp WHERE NOT EXISTS ( SELECT id FROM material WHERE code = 'MAT_FUNC1031') LIMIT 1 ;
 
-SET @FUNC_MATERIAL_ID = (SELECT id FROM material WHERE code = 'MAT_FUNC0925');
-
-
-INSERT INTO function_metadata (function_id, function_name,is_active, is_executable, input_multitable_indicator, all_data_identifier, data_modify_indicator, new_column_indicator, new_datatable_indicator,output_type,create_data_object,use_data_object, function_desc, function_popup_title, function_popup_description, function_search_tags, material_id)Values('FUNC0925','Bar Chart (Py) (IN)',True,True,False,False,False,False,False,'MIXED_OUTPUT',False,False,'','','','bar,chart', @FUNC_MATERIAL_ID);
+SET @FUNC_MATERIAL_ID = (SELECT id FROM material WHERE code = 'MAT_FUNC1031');
 
 
-INSERT INTO function_category_map (Function_id, category_id) values('FUNC0925','303'); 
+INSERT INTO function_metadata (function_id, function_name,is_active, is_executable, input_multitable_indicator, all_data_identifier, data_modify_indicator, new_column_indicator, new_datatable_indicator,output_type,create_data_object,use_data_object, function_desc, function_popup_title, function_popup_description, function_search_tags, material_id)Values('FUNC1031','SQL Case',True,True,False,True,False,False,True,'CSV',False,False,'','','','sql,cas,case', @FUNC_MATERIAL_ID);
+
+
+INSERT INTO function_category_map (Function_id, category_id) values('FUNC1031','106'); 
   -- Param 1);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',1,True,'SINGLE_SELECT','','Select a column to position marks along X-axis.',9990,NOTNULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',1,False,'MULTI_SELECT','','Select column(s) to display from left table',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('x_variable','X-Axis','','STATIC','FUNC0925',1);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('col_names','Column Names','','STATIC','FUNC1031',1);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -50,7 +50,7 @@ SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID
 UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
   
-INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('x_variable','X-Axis','','DATA_HEADER','FUNC0925',1);
+INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('col_names','Column Names','','DATA_HEADER','FUNC1031',1);
 
 SET @Value_ID = (SELECT MAX(ID) FROM param_value);
 
@@ -62,9 +62,9 @@ UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_O
      
   -- Param 2);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',2,True,'SINGLE_SELECT','','Select a column to position marks along Y-axis.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',2,True,'SINGLE_SELECT','','Select a column for condition ',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('y_variable','Y-Axis','','STATIC','FUNC0925',2);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('condition_col','Column for Condition','','STATIC','FUNC1031',2);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -75,7 +75,7 @@ SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID
 UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
   
-INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('y_variable','Y-Axis','','DATA_HEADER','FUNC0925',2);
+INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('condition_col','Column for Condition','','DATA_HEADER','FUNC1031',2);
 
 SET @Value_ID = (SELECT MAX(ID) FROM param_value);
 
@@ -87,9 +87,9 @@ UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_O
      
   -- Param 3);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',3,False,'SINGLE_SELECT','','Enter a column name to assign color to marks. The default value is None.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',3,False,'SINGLE_SELECT','','Select an operator for the case; Default value is Equals',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('color','Color','','STATIC','FUNC0925',3);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('operator','Operator','','STATIC','FUNC1031',3);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -100,7 +100,7 @@ SET @Option_Order = (SELECT Option_Order FROM param_header WHERE id = @Header_ID
 UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
 
   
-INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('color','Color','','DATA_HEADER','FUNC0925',3);
+INSERT INTO param_value (name, label, description, type, function_id, option_order)Values('operator','Operator','','STATIC','FUNC1031',3);
 
 SET @Value_ID = (SELECT MAX(ID) FROM param_value);
 
@@ -109,12 +109,32 @@ SET @Function_ID = (SELECT function_id FROM param_value WHERE id = @Value_ID);
 SET @Option_Order = (SELECT Option_Order FROM param_value WHERE id = @Value_ID);
 
 UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_Order = @Option_Order;
-     
+    
+
+INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '>', '>');
+
+
+
+INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '<=', '<=');
+
+
+
+INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '>=', '>=');
+
+
+
+INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '!=', '!=');
+
+
+
+INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, 'equals', 'equals');
+
+ 
   -- Param 4);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',4,False,'TEXT','','Provide a title for the bar chart, if not entered, a default title will be added to the figure.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',4,True,'TEXT','','Provide a value for condition',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('title','Title','','STATIC','FUNC0925',4);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('condition','Condition','','STATIC','FUNC1031',4);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -127,9 +147,9 @@ UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option
    
   -- Param 5);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',5,False,'TEXT','','Provide a name for labeling the X-axis, if not entered, a default X-Axis Label will be added to the figure.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',5,True,'TEXT','','Provide a Text to display if case is successful',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('Xlabel','X-Axis Label','','STATIC','FUNC0925',5);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('then_value','THEN','','STATIC','FUNC1031',5);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -142,9 +162,9 @@ UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option
    
   -- Param 6);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',6,False,'TEXT','','Provide a name for labeling Y-axis, if not entered, a default Y-Axis Label will be added to the figure.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',6,True,'TEXT','','Provide a Text to display if case is unsuccessful',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('Ylabel','Y-Axis Label','','STATIC','FUNC0925',6);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('else_value','ELSE','','STATIC','FUNC1031',6);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -157,9 +177,9 @@ UPDATE param SET header = @Header_ID WHERE function_id = @Function_ID AND Option
    
   -- Param 7);
 
-INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC0925','Bar Chart (Py) (IN)',7,False,'TEXT','','Provide a name to label the color bar, if not entered, a default Color Label will be added to the figure.',9999,NULL);
+INSERT INTO param (function_id, name, option_order, required, type, description, note, header, value)Values('FUNC1031','SQL Case',7,False,'TEXT','','Provide a name to the new column generated. If not provided, a default value will be used.',9999,NULL);
    
-INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('Clabel','Color Label','','STATIC','FUNC0925',7);
+INSERT INTO param_header (name, label, description, type, function_id, option_order)Values('alias_name','Alias Name','','STATIC','FUNC1031',7);
 
 SET @Header_ID = (SELECT MAX(ID) FROM param_header);
 
@@ -180,7 +200,8 @@ WHERE param_value.function_id = param_value_static_options.function_id
 
 AND param_value.option_order = param_value_static_options.option_order )
 
-WHERE function_id = 'FUNC0925';
+WHERE function_id = 'FUNC1031';
+
 
 SET FOREIGN_KEY_CHECKS= 1 ;
   
