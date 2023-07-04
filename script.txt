@@ -114,21 +114,16 @@ UPDATE param SET value = @Value_ID WHERE function_id = @Function_ID AND Option_O
 INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '>', '>');
 
 
-
 INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '<=', '<=');
-
 
 
 INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '>=', '>=');
 
 
-
 INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, '!=', '!=');
 
 
-
 INSERT INTO param_value_static_options (function_id, option_order, name, label)Values('FUNC1031', 3, 'equals', 'equals');
-
  
   -- Param 4);
 
@@ -201,7 +196,6 @@ WHERE param_value.function_id = param_value_static_options.function_id
 AND param_value.option_order = param_value_static_options.option_order )
 
 WHERE function_id = 'FUNC1031';
-
 
 SET FOREIGN_KEY_CHECKS= 1 ;
   
